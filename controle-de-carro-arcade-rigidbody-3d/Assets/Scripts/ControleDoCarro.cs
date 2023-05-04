@@ -9,6 +9,7 @@ public class ControleDoCarro : MonoBehaviour
     
     [Header("Inputs")]
     private float inputDeMovimento;
+    private float inputDeRotacao;
 
     [Header("Velocidades")]
     [SerializeField] private float velocidadeFrontalNormal;
@@ -20,6 +21,10 @@ public class ControleDoCarro : MonoBehaviour
     [SerializeField] private float velocidadeTraseiraNormal;
     [SerializeField] private float velocidadeTraseiraComFreio;
     [SerializeField] private float velocidadeTraseiraAtual;
+
+    [Space(10)]
+
+    [SerializeField] private float velocidadeDeRotacaoDoCarro;
 
     private void Awake()
     {
@@ -35,6 +40,7 @@ public class ControleDoCarro : MonoBehaviour
     private void Update()
     {
         ReceberInputs();
+        RotacionarCarro();
     }
 
     private void FixedUpdate()
@@ -45,6 +51,7 @@ public class ControleDoCarro : MonoBehaviour
     private void ReceberInputs()
     {
         inputDeMovimento = Input.GetAxisRaw("Vertical");
+        inputDeRotacao = Input.GetAxisRaw("Horizontal");
     }
 
     private void MoverCarro()
@@ -57,5 +64,11 @@ public class ControleDoCarro : MonoBehaviour
         {
             oRigidbody.AddForce(transform.forward * velocidadeTraseiraAtual * inputDeMovimento, ForceMode.Acceleration);
         }
+    }
+
+    private void RotacionarCarro()
+    {
+        float novaRotacao = inputDeRotacao * velocidadeDeRotacaoDoCarro * inputDeMovimento * Time.deltaTime;
+        transform.Rotate(0f, novaRotacao, 0f, Space.World);
     }
 }
