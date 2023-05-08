@@ -26,6 +26,11 @@ public class ControleDoCarro : MonoBehaviour
 
     [SerializeField] private float velocidadeDeRotacaoDoCarro;
 
+    [Header("Rodas")]
+    [SerializeField] private float anguloMaximoDeRotacaoDasRodas;
+    [SerializeField] private Transform rodaFrontalEsquerda;
+    [SerializeField] private Transform rodaFrontalDiretia;
+
     private void Awake()
     {
         oRigidbody = GetComponent<Rigidbody>();
@@ -40,6 +45,7 @@ public class ControleDoCarro : MonoBehaviour
     private void Update()
     {
         ReceberInputs();
+        RotacionarRodas();
         RotacionarCarro();
     }
 
@@ -52,6 +58,15 @@ public class ControleDoCarro : MonoBehaviour
     {
         inputDeMovimento = Input.GetAxisRaw("Vertical");
         inputDeRotacao = Input.GetAxisRaw("Horizontal");
+    }
+
+    private void RotacionarRodas()
+    {
+        // Rotaciona a Roda da Esquerda
+        rodaFrontalEsquerda.localRotation = Quaternion.Euler(rodaFrontalEsquerda.localRotation.eulerAngles.x, (inputDeRotacao * anguloMaximoDeRotacaoDasRodas) - 180f, rodaFrontalEsquerda.localRotation.eulerAngles.z);
+
+        // Rotaciona a Roda da Direita
+        rodaFrontalDiretia.localRotation = Quaternion.Euler(rodaFrontalDiretia.localRotation.eulerAngles.x, (inputDeRotacao * anguloMaximoDeRotacaoDasRodas), rodaFrontalDiretia.localRotation.eulerAngles.z);
     }
 
     private void MoverCarro()
