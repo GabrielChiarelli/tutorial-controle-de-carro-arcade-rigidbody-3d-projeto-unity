@@ -14,20 +14,27 @@ public class ControleDoCarro : MonoBehaviour
     [Header("Velocidades")]
     [SerializeField] private float velocidadeFrontalNormal;
     [SerializeField] private float velocidadeFrontalComFreio;
-    [SerializeField] private float velocidadeFrontalAtual;
+    private float velocidadeFrontalAtual;
 
     [Space(10)]
 
     [SerializeField] private float velocidadeTraseiraNormal;
     [SerializeField] private float velocidadeTraseiraComFreio;
-    [SerializeField] private float velocidadeTraseiraAtual;
+    private float velocidadeTraseiraAtual;
 
     [Space(10)]
 
     [SerializeField] private float velocidadeDeRotacaoDoCarro;
 
+    [Header("Drag do Rigidbody")]
+    [SerializeField] private float dragNormal;
+    [SerializeField] private float dragComFreio;
+
     [Header("Rodas")]
     [SerializeField] private float anguloMaximoDeRotacaoDasRodas;
+
+    [Space(10)]
+
     [SerializeField] private Transform rodaFrontalEsquerda;
     [SerializeField] private Transform rodaFrontalDiretia;
 
@@ -40,6 +47,8 @@ public class ControleDoCarro : MonoBehaviour
     {
         velocidadeFrontalAtual = velocidadeFrontalNormal;
         velocidadeTraseiraAtual = velocidadeTraseiraNormal;
+
+        oRigidbody.drag = dragNormal;
     }
 
     private void Update()
@@ -58,6 +67,15 @@ public class ControleDoCarro : MonoBehaviour
     {
         inputDeMovimento = Input.GetAxisRaw("Vertical");
         inputDeRotacao = Input.GetAxisRaw("Horizontal");
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            FrearCarro();
+        }
+        else
+        {
+            PararDeFrearCarro();
+        }
     }
 
     private void RotacionarRodas()
@@ -79,6 +97,22 @@ public class ControleDoCarro : MonoBehaviour
         {
             oRigidbody.AddForce(transform.forward * velocidadeTraseiraAtual * inputDeMovimento, ForceMode.Acceleration);
         }
+    }
+
+    private void FrearCarro()
+    {
+        velocidadeFrontalAtual = velocidadeFrontalComFreio;
+        velocidadeTraseiraAtual = velocidadeTraseiraComFreio;
+
+        oRigidbody.drag = dragComFreio;
+    }
+
+    private void PararDeFrearCarro()
+    {
+        velocidadeFrontalAtual = velocidadeFrontalNormal;
+        velocidadeTraseiraAtual = velocidadeTraseiraNormal;
+
+        oRigidbody.drag = dragNormal;
     }
 
     private void RotacionarCarro()

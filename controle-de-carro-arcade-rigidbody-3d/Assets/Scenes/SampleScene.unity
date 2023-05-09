@@ -712,11 +712,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocidadeFrontalNormal: 100
   velocidadeFrontalComFreio: 75
-  velocidadeFrontalAtual: 0
   velocidadeTraseiraNormal: 70
   velocidadeTraseiraComFreio: 55
-  velocidadeTraseiraAtual: 0
   velocidadeDeRotacaoDoCarro: 100
+  dragNormal: 4
+  dragComFreio: 6
   anguloMaximoDeRotacaoDasRodas: 45
   rodaFrontalEsquerda: {fileID: 6945619734683856443}
   rodaFrontalDiretia: {fileID: 50596594233977605}
