@@ -41,6 +41,10 @@ public class ControleDoCarro : MonoBehaviour
     [SerializeField] private Transform rodaFrontalEsquerda;
     [SerializeField] private Transform rodaFrontalDiretia;
 
+    [Header("Efeitos das Rodas")]
+    [SerializeField] private TrailRenderer efeitoPneuRodaTraseiraEsquerda;
+    [SerializeField] private TrailRenderer efeitoPneuRodaTraseiraDireita;
+
     [Header("Inclinação do Carro na Rampa")]
     [SerializeField] private float velocidadeDeInclinacaoNaRampa;
     [SerializeField] private float tamanhoDosRaiosDeVerificacao;
@@ -61,6 +65,8 @@ public class ControleDoCarro : MonoBehaviour
         velocidadeTraseiraAtual = velocidadeTraseiraNormal;
 
         oRigidbody.drag = dragNormal;
+
+        DesativarEfeitosDosPneus();
     }
 
     private void Update()
@@ -164,6 +170,15 @@ public class ControleDoCarro : MonoBehaviour
         velocidadeTraseiraAtual = velocidadeTraseiraComFreio;
 
         oRigidbody.drag = dragComFreio;
+
+        if (estaNoChao)
+        {
+            AtivarEfeitosDosPneus();
+        }
+        else
+        {
+            DesativarEfeitosDosPneus();
+        }
     }
 
     private void PararDeFrearCarro()
@@ -172,6 +187,20 @@ public class ControleDoCarro : MonoBehaviour
         velocidadeTraseiraAtual = velocidadeTraseiraNormal;
 
         oRigidbody.drag = dragNormal;
+
+        DesativarEfeitosDosPneus();
+    }
+
+    private void AtivarEfeitosDosPneus()
+    {
+        efeitoPneuRodaTraseiraEsquerda.emitting = true;
+        efeitoPneuRodaTraseiraDireita.emitting = true;
+    }
+
+    private void DesativarEfeitosDosPneus()
+    {
+        efeitoPneuRodaTraseiraEsquerda.emitting = false;
+        efeitoPneuRodaTraseiraDireita.emitting = false;
     }
 
     private void RotacionarCarro()
