@@ -712,6 +712,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e77e23cec683d7543ac98a68a5d8064c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forcaDaGravidade: 150
   velocidadeFrontalNormal: 100
   velocidadeFrontalComFreio: 75
   velocidadeTraseiraNormal: 70

@@ -6,6 +6,9 @@ public class ControleDoCarro : MonoBehaviour
 {
     [Header("Referências Gerais")]
     private Rigidbody oRigidbody;
+
+    [Header("Gravidade")]
+    [SerializeField] private float forcaDaGravidade;
     
     [Header("Inputs")]
     private float inputDeMovimento;
@@ -70,7 +73,16 @@ public class ControleDoCarro : MonoBehaviour
 
     private void FixedUpdate()
     {
+        AplicarGravidade();
         MoverCarro();
+    }
+
+    private void AplicarGravidade()
+    {
+        if (!estaNoChao)
+        {
+            oRigidbody.AddForce(-Vector3.up * forcaDaGravidade);
+        }
     }
 
     private void ReceberInputs()
