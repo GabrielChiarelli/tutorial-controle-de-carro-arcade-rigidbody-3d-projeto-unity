@@ -74,13 +74,13 @@ public class ControleDoCarro : MonoBehaviour
         ReceberInputs();
         RotacionarRodas();
         InclinarNaRampa();
-        RotacionarCarro();
     }
 
     private void FixedUpdate()
     {
         AplicarGravidade();
         MoverCarro();
+        RotacionarCarro();
     }
 
     private void AplicarGravidade()
